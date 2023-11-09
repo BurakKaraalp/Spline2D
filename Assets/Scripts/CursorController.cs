@@ -1,10 +1,13 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Splines;
 
 public class CursorController : MonoBehaviour
 {
     [SerializeField] private SplineContainer _spline;
+    [SerializeField] private TMP_Text percentageText;
+
     private void Update()
     {
         //Faremizin ekrandaki ve dünyadaki pozisyonunu alıyoruz
@@ -31,6 +34,10 @@ public class CursorController : MonoBehaviour
             {
                 Vector3 cursorPos = new Vector2(Camera.main.WorldToScreenPoint(nearest).x, Camera.main.WorldToScreenPoint(nearest).y);
                 Mouse.current.WarpCursorPosition(cursorPos);
+                //cursorun spline başlangıç noktasının 100 üzerinen hangi kısımda olduğunu hesaplıyoruz.
+                float percentage = t * 100f;
+                //Değeri ekrana yazıyoruz.
+                percentageText.text = string.Format("On spline %{0}", percentage);
             }
         }
     }
